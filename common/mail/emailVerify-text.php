@@ -1,12 +1,11 @@
 <?php
 
-/** @var yii\web\View $this */
-/** @var common\models\User $user */
+/* @var $user \common\entities\User */
 
-$verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['site/verify-email', 'token' => $user->verification_token]);
+$confirmLink = Yii::$app->urlManager->createAbsoluteUrl(['site/signup-confirm', 'token' => $user->email_confirm_token]);
 ?>
-Hello <?= $user->username ?>,
+    Hello <?= $user->username ?>,
 
-Follow the link below to verify your email:
+    Follow the link below to confirm your email:
 
-<?= $verifyLink ?>
+<?= $confirmLink ?>

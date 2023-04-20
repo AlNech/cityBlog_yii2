@@ -1,16 +1,14 @@
 <?php
-
 use yii\helpers\Html;
 
-/** @var yii\web\View $this */
-/** @var common\models\User $user */
+/* @var $user \common\entities\User */
 
-$verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['site/verify-email', 'token' => $user->verification_token]);
+$confirmLink = Yii::$app->urlManager->createAbsoluteUrl(['site/signup-confirm', 'token' => $user->email_confirm_token]);
 ?>
-<div class="verify-email">
+<div class="password-reset">
     <p>Hello <?= Html::encode($user->username) ?>,</p>
 
-    <p>Follow the link below to verify your email:</p>
+    <p>Follow the link below to confirm your email:</p>
 
-    <p><?= Html::a(Html::encode($verifyLink), $verifyLink) ?></p>
+    <p><?= Html::a(Html::encode($confirmLink), $confirmLink) ?></p>
 </div>
