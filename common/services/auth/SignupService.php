@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 
 namespace common\services\auth;
 
@@ -76,5 +75,3 @@ class SignupService
     }
 
 }
-=======
->>>>>>> 1ce556887ca37819541009fcddcc43c839585aed
