@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\models;
+namespace backend\controllers;
 
 use common\models\Cities;
 use common\models\search\CitiesSearch;
@@ -27,7 +27,9 @@ class CitiesController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
+
             ]
+
         );
     }
 

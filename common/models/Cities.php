@@ -3,7 +3,8 @@
 namespace common\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 /**
  * This is the model class for table "cities".
  *
@@ -20,7 +21,17 @@ class Cities extends \yii\db\ActiveRecord
     {
         return 'cities';
     }
-
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['date_create'],
+                ],
+            ]
+            ];
+    }
     /**
      * {@inheritdoc}
      */
@@ -38,9 +49,7 @@ class Cities extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
             'name' => 'Name',
-            'date_create' => 'Date Create',
         ];
     }
 }

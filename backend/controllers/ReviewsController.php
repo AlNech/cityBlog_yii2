@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\models;
+namespace backend\controllers;
 
 use common\models\Reviews;
 use common\models\search\ReviewsSearch;

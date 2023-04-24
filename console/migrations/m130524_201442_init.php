@@ -17,6 +17,7 @@ class m130524_201442_init extends Migration
             'username' => $this->string()->notNull()->unique(),
             'fio' => $this->string(128),
             'auth_key' => $this->string(32)->notNull(),
+            'isAdmin' => $this->integer()->defaultValue(0),
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string()->unique(),
             'email' => $this->string()->notNull()->unique(),
