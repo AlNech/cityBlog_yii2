@@ -15,6 +15,9 @@ $this->title = 'My Yii Application';
                 <?= \yii\helpers\Html::a( $city->name, ['/'], ['class' => ''])?>
             <div>
             <?php endforeach;?>
+
+
+
         </div>
 
     </div>

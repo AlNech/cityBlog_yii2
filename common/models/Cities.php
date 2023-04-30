@@ -43,6 +43,17 @@ class Cities extends \yii\db\ActiveRecord
         ];
     }
 
+
+    private static $_items=array();
+    public static function items()
+    {
+        if(!isset(self::$_items))
+            self::$_items=[];
+            $models=self::find()->all();
+            foreach ($models as $model)
+                self::$_items[$model->id]=$model->name;
+        return self::$_items;
+    }
     /**
      * {@inheritdoc}
      */
