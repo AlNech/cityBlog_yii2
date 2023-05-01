@@ -85,7 +85,7 @@ class Reviews extends \yii\db\ActiveRecord
 
     public function saveImage($filename)
     {
-        $this->image = $filename;
-        return $this->save(false);
+        $this->img = $filename;
+        $this->save(false);
     }
 }

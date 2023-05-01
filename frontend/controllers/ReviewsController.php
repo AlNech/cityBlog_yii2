@@ -3,12 +3,13 @@
 namespace frontend\controllers;
 
 use frontend\models\ImageUpload;
+use yii\web\UploadedFile;
 use common\models\Reviews;
 use common\models\search\ReviewsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
+use Yii;
 
 /**
  * ReviewsController implements the CRUD actions for Reviews model.
@@ -48,19 +49,23 @@ class ReviewsController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-    public function actionSetImage($id){
-        $model = new ImageUpload();
 
+    /**
+     * @throws NotFoundHttpException
+     */
+    public function actionSetImage($id): string
+    {
+        $model = new ImageUpload;
 
         if (Yii::$app->request->isPost)
         {
             $reviews = $this->findModel($id);
-            $file = UploadedFile::getInstance($model, 'image');
+            $file = UploadedFile::getInstance($model, 'img');
 
-            $reviews->saveImage($model->uploadFile($file, $reviews->image));
+            $reviews->saveImage($model->uploadFile($file, $reviews->img));
 
         }
-        return $this->render('image', ['model' => $model]);
+        return $this->render('img', ['model' => $model]);
     }
     /**
      * Displays a single Reviews model.

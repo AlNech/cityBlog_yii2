@@ -12,7 +12,7 @@ use common\models\Cities;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'image')->fileInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'img')->fileInput(['maxlength' => true]) ?>
 
 
     <div class="form-group">
