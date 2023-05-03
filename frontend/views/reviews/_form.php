@@ -1,5 +1,7 @@
 <?php
 
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\Cities;
@@ -12,7 +14,19 @@ use common\models\Cities;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_city')->dropDownList(Cities::items(), ['prompt'=>'Select...']) ?>
+
+
+    <?= $form->field($model, 'cities_arr')->widget(Select2::classname(), [
+    'data' => ArrayHelper::map(Cities::find()->all(), 'id', 'name'),
+    'language' => 'ru',
+    'options' => ['placeholder' => 'Select a state ...','multiple' => true],
+    'pluginOptions' => [
+        'allowClear' => true,
+        'tags' => true,
+        'maximumInputLength' => 10
+    ],
+    ]);?>
+
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 

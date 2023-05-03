@@ -54,6 +54,8 @@ class Cities extends \yii\db\ActiveRecord
                 self::$_items[$model->id]=$model->name;
         return self::$_items;
     }
+
+
     /**
      * {@inheritdoc}
      */

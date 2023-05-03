@@ -28,15 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'id_city',
             'title',
             'text:ntext',
             'rating',
-            //'img',
-            //'id_author',
-            //'date_create',
+            ['attribute'=>'Author', 'value'=>function($model){return $model->author->username;}],
+            ['attribute'=>'Cities', 'value'=>function($model){return $model->citiesstring;}],
+            ['attribute'=>'Date create', 'value'=>function($model){return date('F j, Y',$model->date_create);}],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Reviews $model, $key, $index, $column) {

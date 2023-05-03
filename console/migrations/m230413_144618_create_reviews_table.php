@@ -14,7 +14,6 @@ class m230413_144618_create_reviews_table extends Migration
     {
         $this->createTable('{{%reviews}}', [
             'id' => $this->primaryKey(),
-            'id_city' => $this->integer(),
             'title' => $this->string(128),
             'text' => $this->text(),
             'rating' => $this->integer(),

@@ -17,7 +17,7 @@ class ReviewsSearch extends Reviews
     public function rules()
     {
         return [
-            [['id', 'id_city', 'rating', 'id_author', 'date_create'], 'integer'],
+            [['id', 'cities', 'rating', 'id_author', 'date_create'], 'integer'],
             [['title', 'text', 'img'], 'safe'],
         ];
     }
@@ -59,7 +59,7 @@ class ReviewsSearch extends Reviews
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_city' => $this->id_city,
+            'cities' => $this->cities,
             'rating' => $this->rating,
             'id_author' => $this->id_author,
             'date_create' => $this->date_create,

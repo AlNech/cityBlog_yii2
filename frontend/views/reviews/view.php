@@ -30,14 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'id_city',
+            ['attribute'=>'Cities', 'value'=>function($model){return $model->citiesstring;}],
             'title',
             'text:ntext',
             'rating',
             'img',
-            'id_author',
-            'date_create',
+            ['attribute'=>'Author', 'value'=>function($model){return $model->author->username;}],
+            ['attribute'=>'Date create', 'value'=>function($model){return date('F j, Y',$model->date_create);}],
         ],
     ]) ?>
 

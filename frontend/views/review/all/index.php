@@ -11,11 +11,20 @@ $this->title = 'My Yii Application';
         <div class="row">
             <?php foreach ($reviews as $review):?>
             <div class="col-lg-4">
-                <div class="title"><h3><?=$review->title?></h3></div>
-                <div class="title"><h3><?=$review->text?></h3></div>
-                <div class="title"><h3><?=$review->rating?></h3></div>
-                <div class="title"><h3><?=$review->id_author->username?></h3></div>
-                <div class="title"><h3><?=$review->date_create?></h3></div>
+                <div class="title">
+                    <h3><?=$review->title?></h3>
+                    <span ><?=$review->author->username?></span>
+                    <span ><?=date('F j, Y',$review->date_create)?></span>
+                </div>
+                <div class=""><?=$review->text?></div>
+
+                <?php foreach ($review->cities as $city):?>
+                    <div class=""><?=$city->name?></div>
+                <?php endforeach;?>
+
+
+
+                <div class=""><span>Оценка: </span><?=$review->rating?></div>
             <div>
             <?php endforeach;?>
         </div>

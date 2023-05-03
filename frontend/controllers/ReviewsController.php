@@ -50,9 +50,10 @@ class ReviewsController extends Controller
         ]);
     }
 
-    /**
-     * @throws NotFoundHttpException
-     */
+    public function actionSetCities()
+    {
+
+    }
     public function actionSetImage($id): string
     {
         $model = new ImageUpload;
@@ -145,7 +146,7 @@ class ReviewsController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Reviews::findOne(['id' => $id])) !== null) {
+        if (($model = Reviews::find()->with('cities')->andWhere(['id' => $id])->one()) !== null) {
             return $model;
         }
 

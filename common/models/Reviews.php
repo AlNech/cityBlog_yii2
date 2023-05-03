@@ -6,11 +6,14 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\db\ActiveRecord;
+use common\models\User;
+use yii\helpers\ArrayHelper;
+
 /**
  * This is the model class for table "reviews".
  *
  * @property int $id
- * @property int|null $id_city
+ * @property int|null $cities_arr
  * @property string|null $title
  * @property string|null $text
  * @property int|null $rating
@@ -20,6 +23,9 @@ use yii\db\ActiveRecord;
  */
 class Reviews extends \yii\db\ActiveRecord
 {
+
+
+
     public function behaviors()
     {
         return [
@@ -52,11 +58,12 @@ class Reviews extends \yii\db\ActiveRecord
     {
         //The value from tech task
         return [
-            [['id_city',  'id_author', 'date_create'], 'integer'],
-            [['rating'], 'in', 'range'=>[1,2,3,4,5]],
+            [['id_author', 'date_create'], 'integer'],
+            [['rating'], 'integer'],
             [['text'], 'string', 'max' => 255],
             [['title'], 'string', 'max' => 100],
             [['img'], 'string', 'max' => 255],
+            [['cities_arr'], 'safe'],
         ];
     }
     public function getUrl()
@@ -72,7 +79,7 @@ class Reviews extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_city' => 'City',
+            'cities_arr' => 'Cities',
             'title' => 'Title',
             'text' => 'Text',
             'rating' => 'Rating',
@@ -88,4 +95,56 @@ class Reviews extends \yii\db\ActiveRecord
         $this->img = $filename;
         $this->save(false);
     }
+    public function getAuthor()
+    {
+        return $this->hasOne(User::class, ['id' => 'id_author']);
+    }
+
+    public function getCities()
+    {
+        return $this->hasMany(Cities::className(), ['id' => 'city_id'])
+            ->viaTable('review_city', ['review_id' => 'id']);
+    }
+    /**
+     * Список городов, закреплённых за отзывом.
+     * @var array
+     */
+    public $cities_arr = [];
+
+    /**
+     * Устанавлиает тэги отзыва.
+     * @param $city_id
+     */
+    public function setCities($city_id)
+    {
+        $this->cities_arr = (array) $city_id;
+    }
+    public function getCitiesString()
+    {
+        $arr = ArrayHelper::map($this->cities, 'id', 'name');
+        return implode(', ', $arr);
+    }
+    /**
+     * Возвращает массив идентификаторов городов.
+     */
+    public function getCitiesId()
+    {
+        return ArrayHelper::getColumn(
+            $this->getCities()->all(), 'city_id'
+        );
+    }
+    public function afterSave($insert, $changedAttributes)
+    {
+        ReviewCity::deleteAll(['review_id' => $this->id]);
+        $values = [];
+        foreach ($this->cities_arr as $id) {
+            $values[] = [$this->id, $id];
+        }
+        self::getDb()->createCommand()
+            ->batchInsert(ReviewCity::tableName(), ['review_id', 'city_id'], $values)->execute();
+
+        parent::afterSave($insert, $changedAttributes);
+
+    }
+
 }
