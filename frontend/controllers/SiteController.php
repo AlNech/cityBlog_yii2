@@ -9,6 +9,7 @@ use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -70,7 +71,14 @@ class SiteController extends Controller
             ],
         ];
     }
+    public function sortObjectSetBy($objectSetForSort, $sortBy){
 
+        usort($objectSetForSort, function($object1,$object2) use ($sortBy){
+            if($object1->$sortBy == $object2->$sortBy) return 0;
+            return ($object1->$sortBy < $object2->$sortBy) ? -1 : 1;});
+
+        return $objectSetForSort;
+    }
     /**
      * Displays homepage.
      *
@@ -79,6 +87,8 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $cities = Cities::find()->all();
+        $cities = $this->sortObjectSetBy($cities, 'name');
+
         return $this->render('index', ['cities'=>$cities]);
     }
 

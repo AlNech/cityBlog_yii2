@@ -12,19 +12,19 @@ $this->title = 'My Yii Application';
             <?php foreach ($reviews as $review):?>
             <div class="col-lg-4">
                 <div class="title">
-                    <h3><?=$review->title?></h3>
-                    <span ><?=$review->author->username?></span>
-                    <span ><?=date('F j, Y',$review->date_create)?></span>
+                    <h3><?=$review["title"]?></h3>
+
+                    <span ><?=date('F j, Y',$review["date_create"])?></span>
                 </div>
-                <div class=""><?=$review->text?></div>
+                <div class=""><?=$review["text"]?></div>
 
                 <?php foreach ($review->cities as $city):?>
-                    <div class=""><?=$city->name?></div>
+                    <div class=""><?=$city["name"]?></div>
                 <?php endforeach;?>
 
+                <?= \yii\helpers\Html::a( 'Подробнее', ['review/one', 'id' => $review["id"]], ['class' => 'btn btn-success'])?>
 
-
-                <div class=""><span>Оценка: </span><?=$review->rating?></div>
+                <div class=""><span>Оценка: </span><?=$review["rating"]?></div>
             <div>
             <?php endforeach;?>
         </div>

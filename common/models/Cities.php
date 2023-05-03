@@ -44,17 +44,11 @@ class Cities extends \yii\db\ActiveRecord
     }
 
 
-    private static $_items=array();
-    public static function items()
+    public function getReviews()
     {
-        if(!isset(self::$_items))
-            self::$_items=[];
-            $models=self::find()->all();
-            foreach ($models as $model)
-                self::$_items[$model->id]=$model->name;
-        return self::$_items;
+        return $this->hasMany(Reviews::className(), ['id' => 'review_id'])
+            ->viaTable('review_city', ['city_id' => 'id']);
     }
-
 
     /**
      * {@inheritdoc}
