@@ -75,7 +75,10 @@ class User extends ActiveRecord implements IdentityInterface
     {
         throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
-
+    public function getReviews()
+    {
+        return $this->hasMany(Reviews::className(), ['id_author' => 'id']);
+    }
     /**
      * Finds user by username
      *
