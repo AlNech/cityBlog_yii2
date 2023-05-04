@@ -24,7 +24,7 @@ $this->title = 'My Yii Application';
 
 
                 <?php
-                $id = $review["id_author"];
+                $id = $review["id_author"] - 1;
                 if (!Yii::$app->user->isGuest){
                     Popover::begin([
                         'title' =>  $authors[$id]->username,

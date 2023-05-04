@@ -56,6 +56,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            [['fio', 'email'], 'string'],
+            [['isAdmin', 'phone'], 'integer'],
             ['status', 'in', 'range' => [self::STATUS_DELETED, self::STATUS_WAIT, self::STATUS_ACTIVE]],
         ];
     }

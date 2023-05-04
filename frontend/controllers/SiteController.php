@@ -86,10 +86,35 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $model = User::find()->where(['username' => 'admin'])->one();
+        if (empty($model)) {
+            $user = new User();
+            $user->username = 'admin';
+            $user->isAdmin = 1;
+            $user->fio = 'Ivanov Ivan Ivanovich';
+            $user->phone = 893333333;
+            $user->generateAuthKey();
+            $user->status = 10;
+            $user->email = 'admin@yoursite.ru';
+            $user->setPassword('admin1234');
+            $user->save();
+        }
+
         $cities = Cities::find()->all();
         $cities = $this->sortObjectSetBy($cities, 'name');
 
-        return $this->render('index', ['cities'=>$cities]);
+        $model = new Cities();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['/']);
+            }
+            else {
+                    $model->loadDefaultValues();
+            }
+        }
+
+        return $this->render('index', ['cities'=>$cities, 'model' => $model]);
     }
 
     /**

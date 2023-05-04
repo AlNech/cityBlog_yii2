@@ -39,10 +39,28 @@ class Cities extends \yii\db\ActiveRecord
     {
         return [
             [['date_create'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['name'],  'string', 'max' => 255],
+            [['name'],  'unique'],
+            [['name'],  'checkCityAPI'],
         ];
     }
 
+    public function checkCityAPI($attribute){
+        $token = "cba7b8c2a30dc77de83849fa60076abb5e8bcafd";
+        $secret = "0b1b44050176785fe58567edb230438497102638";
+        $dadata = new \Dadata\DadataClient($token, $secret);
+        //$ip = "46.147.140.54";
+        //$location = $dadata->iplocate($ip);
+        //var_dump( $location["data"]["city"]);die;
+        $url= $dadata->clean("address", $this->name);
+        if (isset($this->name)) {
+            if($url["result"]!=null) {
+                return true;
+            }else{
+                $this->addError($attribute, "This city doesn't exist");
+            }
+        }
+    }
 
     public function getReviews()
     {

@@ -50,10 +50,7 @@ class ReviewsController extends Controller
         ]);
     }
 
-    public function actionSetCities()
-    {
 
-    }
     public function actionSetImage($id): string
     {
         $model = new ImageUpload;

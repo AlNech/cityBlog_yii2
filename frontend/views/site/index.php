@@ -1,24 +1,49 @@
 <?php
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
 /** @var yii\web\View $this */
 /** @var common\models\Cities $cities */
+/** @var \frontend\controllers\SiteController $model */
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
 
-    <div class="body-content">
+    <div class="body-content col-md-12">
 
-        <div class="row">
-            <?php foreach ($cities as $city):?>
+        <div class="">
+            <div class="col-md-12 d-flex flex-row justify-content-between">
+                        <?php foreach ($cities as $city):?>
 
-            <div class="col-lg-4">
-                <?= \yii\helpers\Html::a( $city->name, ['review/', 'id' => 1], ['class' => 'btn btn-danger'])?>
+                        <div class="col-md-12">
+                            <?= \yii\helpers\Html::a( $city->name, ['review/', 'id' => $city->id], ['class' => 'btn btn-success'])?>
+                        <div>
+                        <?php endforeach;?>
             <div>
-            <?php endforeach;?>
 
+            <?php if(!Yii::$app->user->isGuest){
+                    echo '<div class="col-md-6">';
+
+                    $form = ActiveForm::begin();
+    
+                    echo $form->field($model, "name")->textInput(["maxlength" => true]);
+    
+                    echo '<div class="form-group">';
+
+                    echo Html::submitButton("Добавить город", ["class" => "btn btn-success"]);
+                    echo '</div>';
+
+                    ActiveForm::end();
+    
+                    echo '</div>';
+            } ?>
 
         </div>
+
+
+
+
 
     </div>
 </div>
