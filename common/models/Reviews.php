@@ -2,11 +2,12 @@
 
 namespace common\models;
 
+use common\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\db\ActiveRecord;
-use common\models\User;
+
 use yii\helpers\ArrayHelper;
 
 /**
@@ -88,7 +89,10 @@ class Reviews extends \yii\db\ActiveRecord
             'date_create' => 'Date Create',
         ];
     }
-
+    public function getUser($id){
+        $user = User::findOne($id);
+        return $user;
+    }
 
     public function saveImage($filename)
     {
@@ -99,6 +103,7 @@ class Reviews extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'id_author']);
     }
+
 
     public function getCities()
     {

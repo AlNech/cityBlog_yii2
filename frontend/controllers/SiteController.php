@@ -25,6 +25,8 @@ use frontend\models\ContactForm;
  */
 class SiteController extends Controller
 {
+    private $TOKEN = "cba7b8c2a30dc77de83849fa60076abb5e8bcafd";
+    private $SECRET = "0b1b44050176785fe58567edb230438497102638";
     /**
      * {@inheritdoc}
      */
@@ -84,11 +86,11 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function addUser(){
         $model = User::find()->where(['username' => 'admin'])->one();
         if (empty($model)) {
             $user = new User();
+            $user->id = 1;
             $user->username = 'admin';
             $user->isAdmin = 1;
             $user->fio = 'Ivanov Ivan Ivanovich';
@@ -99,6 +101,11 @@ class SiteController extends Controller
             $user->setPassword('admin1234');
             $user->save();
         }
+    }
+    public function actionIndex()
+    {
+        $this->addUser();
+        $location = $this->getUserIpLocation();
 
         $cities = Cities::find()->all();
         $cities = $this->sortObjectSetBy($cities, 'name');
@@ -114,7 +121,7 @@ class SiteController extends Controller
             }
         }
 
-        return $this->render('index', ['cities'=>$cities, 'model' => $model]);
+        return $this->render('index', ['cities'=>$cities, 'model' => $model, 'location'=>$location]);
     }
 
     /**
@@ -158,7 +165,17 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+    //Get location user with IP-address
+    public function getUserIpLocation(){
+        //The $ip value should be determined with special function,
+        //$ip = $_SERVER['REMOTE_ADDR'];
+        //but it is on location server therefore function doesn't work
+        $ip = "46.147.140.54";
+        $dadata = new \Dadata\DadataClient($this->TOKEN, $this->SECRET);
 
+        $location = $dadata->iplocate($ip);
+        return $location["data"]["city"];
+    }
     /**
      * Displays contact page.
      *

@@ -14,6 +14,7 @@ $this->title = 'My Yii Application';
     <div class="body-content">
         <div class="row">
             <?php foreach ($reviews as $review):?>
+            <?php $author = $review->getUser($review["id_author"]);?>
             <div class="col-lg-4">
                 <div class="title">
                     <h3><?=$review["title"]?></h3>
@@ -24,16 +25,16 @@ $this->title = 'My Yii Application';
 
 
                 <?php
-                $id = $review["id_author"] - 1;
+
                 if (!Yii::$app->user->isGuest){
                     Popover::begin([
-                        'title' =>  $authors[$id]->username,
-                        'toggleButton' => ['label' => $authors[$id]->fio],
+                        'title' => $author->username,
+                        'toggleButton' => ['label' => $author->username],
 
                     ]);
 
-                    echo $authors[$id]->phone;
-                    echo $authors[$id]->email;
+                    echo $author->phone;
+                    echo $author->email;
                     echo \yii\helpers\Html::a('View', ['author/', 'id' => $review["id"]],['class'=>'btn btn-primary']);
                     Popover::end();
                 }

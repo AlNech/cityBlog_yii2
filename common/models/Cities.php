@@ -14,6 +14,10 @@ use yii\db\ActiveRecord;
  */
 class Cities extends \yii\db\ActiveRecord
 {
+
+
+    private $TOKEN = "cba7b8c2a30dc77de83849fa60076abb5e8bcafd";
+    private $SECRET = "0b1b44050176785fe58567edb230438497102638";
     /**
      * {@inheritdoc}
      */
@@ -45,13 +49,10 @@ class Cities extends \yii\db\ActiveRecord
         ];
     }
 
+    //Validate city existed with API - service dadata
     public function checkCityAPI($attribute){
-        $token = "cba7b8c2a30dc77de83849fa60076abb5e8bcafd";
-        $secret = "0b1b44050176785fe58567edb230438497102638";
-        $dadata = new \Dadata\DadataClient($token, $secret);
-        //$ip = "46.147.140.54";
-        //$location = $dadata->iplocate($ip);
-        //var_dump( $location["data"]["city"]);die;
+        $dadata = new \Dadata\DadataClient($this->TOKEN, $this->SECRET);
+
         $url= $dadata->clean("address", $this->name);
         if (isset($this->name)) {
             if($url["result"]!=null) {

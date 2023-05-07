@@ -16,16 +16,13 @@ class ReviewController extends Controller
     public function actionIndex($id)
     {
         $city = Cities::findOne($id);
+
         $reviews = $city->reviews;
-        $authors = [];
-        foreach ($reviews as $review){
-            $author = User::find()->andWhere(['id'=>$review["id_author"]])->one();
-            array_push($authors, $author);
-        }
 
 
 
-        return $this->render('all/index', ['reviews' => $reviews, 'authors' => $authors]);
+
+        return $this->render('all/index', ['reviews' => $reviews]);
     }
     public function actionOne($id)
     {

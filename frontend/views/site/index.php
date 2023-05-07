@@ -5,9 +5,14 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var common\models\Cities $cities */
 /** @var \frontend\controllers\SiteController $model */
+/** @var \frontend\controllers\SiteController $location */
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
+
+    <?php  echo $this->context->renderPartial('_modal', array(
+        'location'=>$location,
+    ));?>
 
 
     <div class="body-content col-md-12">
