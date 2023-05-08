@@ -19,9 +19,6 @@ class ReviewController extends Controller
 
         $reviews = $city->reviews;
 
-
-
-
         return $this->render('all/index', ['reviews' => $reviews]);
     }
     public function actionOne($id)

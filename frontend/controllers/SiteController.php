@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Cities;
 use common\services\auth\SignupService;
 use common\models\User;
+use frontend\models\ImageUpload;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -19,6 +20,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\web\UploadedFile;
 
 /**
  * Site controller
@@ -165,6 +167,7 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+
     //Get location user with IP-address
     public function getUserIpLocation(){
         //The $ip value should be determined with special function,
