@@ -109,6 +109,8 @@ class SiteController extends Controller
         $this->addUser();
         $location = $this->getUserIpLocation();
 
+        $session = Yii::$app->session;
+
         $cities = Cities::find()->all();
         $cities = $this->sortObjectSetBy($cities, 'name');
 
@@ -123,7 +125,7 @@ class SiteController extends Controller
             }
         }
 
-        return $this->render('index', ['cities'=>$cities, 'model' => $model, 'location'=>$location]);
+        return $this->render('index', ['cities'=>$cities, 'model' => $model, 'location'=>$location, 'session'=>$session]);
     }
 
     /**

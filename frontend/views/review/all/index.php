@@ -7,10 +7,20 @@ use yii\helpers\Html;
 /** @var common\models\Cities $cities */
 /** @var \frontend\controllers\ReviewController $reviews */
 /** @var \frontend\controllers\ReviewController $authors*/
+/** @var \frontend\controllers\ReviewController $session*/
 $this->title = 'My Yii Application';
+?>
+<?php
+    $now = time();
+    if (isset($session['city'])){
+        if ($now > $session['city']['lifetime']) {
+            Yii::$app->response->redirect('site/index');
+        }
+    }
 ?>
 
 <div class="site-index">
+
     <div class="body-content">
         <div class="row">
             <?php foreach ($reviews as $review):?>

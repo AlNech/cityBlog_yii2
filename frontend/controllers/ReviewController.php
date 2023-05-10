@@ -13,13 +13,24 @@ use yii\web\Controller;
 
 class ReviewController extends Controller
 {
+
+
     public function actionIndex($id)
     {
+        $session = Yii::$app->session;
+        if (!isset($session['city'])){
+            $session['city'] = [
+                'id_city' => $id,
+                'lifetime' => time() + 20,
+            ];
+        }
+
+
         $city = Cities::findOne($id);
 
         $reviews = $city->reviews;
 
-        return $this->render('all/index', ['reviews' => $reviews]);
+        return $this->render('all/index', ['reviews' => $reviews, 'session'=>$session]);
     }
     public function actionOne($id)
     {

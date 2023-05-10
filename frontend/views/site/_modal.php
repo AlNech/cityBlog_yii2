@@ -20,7 +20,6 @@ use \yii\helpers\Html;
 </script>
 
 <div class="body-content col-md-12">
-
     <!-- Модальное окно -->
     <div class="modal fade" id="myModal" tabindex="-1" aria-hidden="false">
         <div class="modal-dialog">
