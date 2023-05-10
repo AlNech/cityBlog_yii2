@@ -11,16 +11,9 @@ $this->title = 'My Yii Application';
 ?>
 
 <?php
-    $now = time();
     if (isset($session['city'])){
-        if ($now > $session['city']['lifetime']) {
-            $session->remove('city');
-        }
-        else {
             Yii::$app->response->redirect(['review/', 'id' => $session['city']['id_city']]);
-        }
     }
-
 ?>
 <div class="site-index">
 
