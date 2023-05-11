@@ -9,30 +9,37 @@ use yii\helpers\Html;
 $this->title = 'My Yii Application';
 ?>
 
-<div class="site-index">
-    <div class="body-content">
-        <div class="row">
-            <?php foreach ($reviews as $review):?>
-            <div class="col-lg-4">
-                <div class="title">
-                    <h3><?=$review["title"]?></h3>
 
-                    <span class="badge bg-secondary"><?=date('F j, Y',$review["date_create"])?></span>
+<div class="container">
+    <div class="row">
+        <?php foreach ($reviews as $review):?>
+            <!--        Find author review-->
+            <?php $author = $review->getUser($review["id_author"]);?>
+            <div class="col-md-5 ml-3">
+                <div class="title"><h3><?=$review["title"]?></h3></div>
+
+                <div class="row">
+                    <div class="date col"><span class="badge bg-secondary"><?=date('F j, Y',$review["date_create"])?></span></div>
                 </div>
-                <div class=""><?=$review["text"]?></div>
 
 
+                <div class="text mt-2"><?=$review["text"]?></div>
 
 
-                <?php foreach ($review->cities as $city):?>
-                    <div class=""><?=$city["name"]?></div>
-                <?php endforeach;?>
-
-                <?= \yii\helpers\Html::a( 'Подробнее', ['review/one', 'id' => $review["id"]], ['class' => 'btn btn-success'])?>
-
-                <div class=""><span>Оценка: </span><?=$review["rating"]?></div>
-                <div>
+                <div class="mt-3 mb-3">
+                    <?php foreach ($review->cities as $city):?>
+                        <?=$city["name"] . '  '?>
                     <?php endforeach;?>
                 </div>
+
+
+                <div class="button open-page-review">
+                    <?= \yii\helpers\Html::a( 'Подробнее', ['review/one', 'id' => $review["id"]], ['class' => 'btn btn-success'])?>
+                </div>
+
+
+                <div class="rating"><span>Оценка: </span><?=$review["rating"]?></div>
             </div>
-        </div>
+        <?php endforeach;?>
+    </div>
+</div>

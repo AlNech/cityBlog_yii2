@@ -17,39 +17,49 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <?php  echo $this->context->renderPartial('_modal', array(
+    <?php /* echo $this->context->renderPartial('_modal', array(
         'location'=>$location,
-    ));?>
+    ));*/?>
 
 
+
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-6">
+                <?php foreach ($cities as $city):?>
+                    <?= \yii\helpers\Html::a( $city->name, ['review/', 'id' => $city->id], ['class' => 'my-1 mx-1 btn btn-outline-secondary'])?>
+                <?php endforeach;?>
+            </div>
+
+
+            <div class="col-md-6">
+                <?php if(!Yii::$app->user->isGuest){
+                    echo '<div class="d-flex justify-content-center align-content-center border border-secondary">';
+
+                        $form = ActiveForm::begin();
+                        echo '<div class="mt-4">';
+                            echo $form->field($model, "name")->textInput(["maxlength" => true]);
+                        echo '</div>';
+
+                        echo '<div class="form-group mt-2 mb-4">';
+                                echo Html::submitButton("Добавить город", ["class" => "btn btn-success"]);
+                        echo '</div>';
+
+                        ActiveForm::end();
+
+                    echo '</div>';
+                } ?>
+            </div>
+        </div>
+    </div>
     <div class="body-content col-md-12">
 
         <div class="">
             <div class="col-md-12 d-flex flex-row justify-content-between">
-                        <?php foreach ($cities as $city):?>
 
-                        <div class="col-md-12">
-                            <?= \yii\helpers\Html::a( $city->name, ['review/', 'id' => $city->id], ['class' => 'btn btn-success'])?>
-                        <div>
-                        <?php endforeach;?>
             <div>
 
-            <?php if(!Yii::$app->user->isGuest){
-                    echo '<div class="col-md-6">';
 
-                    $form = ActiveForm::begin();
-    
-                    echo $form->field($model, "name")->textInput(["maxlength" => true]);
-    
-                    echo '<div class="form-group">';
-
-                    echo Html::submitButton("Добавить город", ["class" => "btn btn-success"]);
-                    echo '</div>';
-
-                    ActiveForm::end();
-    
-                    echo '</div>';
-            } ?>
 
         </div>
 

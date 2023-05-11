@@ -10,6 +10,7 @@ use yii\helpers\Html;
 /** @var \frontend\controllers\ReviewController $session*/
 $this->title = 'My Yii Application';
 ?>
+<!--Determinate is time over on session-->
 <?php
     $now = time();
     $session['now'] = $now;
@@ -22,47 +23,63 @@ $this->title = 'My Yii Application';
     }
 ?>
 
-<div class="site-index">
 
-    <div class="body-content">
-        <div class="row">
-            <?php foreach ($reviews as $review):?>
-            <?php $author = $review->getUser($review["id_author"]);?>
-            <div class="col-lg-4">
-                <div class="title">
-                    <h3><?=$review["title"]?></h3>
+<div class="container">
+    <div class="row">
+        <?php foreach ($reviews as $review):?>
+        <!--        Find author review-->
+        <?php $author = $review->getUser($review["id_author"]);?>
+            <div class="col-md-5 ml-3">
+                <div class="title"><h3><?=$review["title"]?></h3></div>
 
-                    <span class="badge bg-secondary"><?=date('F j, Y',$review["date_create"])?></span>
+                <div class="row">
+                    <div class="date col"><span class="badge bg-secondary"><?=date('F j, Y',$review["date_create"])?></span></div>
+
+
+                    <!--Window with info about author for auth user-->
+                    <div class="author-info col">
+                        <?php
+                        if (!Yii::$app->user->isGuest){
+                            Popover::begin([
+                                'title' => $author->fio,
+                                'toggleButton' => ['label' => $author->username, 'class'=>'badge bg-secondary'],
+
+                            ]);
+
+                            echo $author->phone . '<br>';
+                            echo $author->email . '<br>';
+                            echo \yii\helpers\Html::a('View', ['author/', 'id' => $author->id],['class'=>'btn btn-primary mt-2']);
+                            Popover::end();
+                        }
+                        ?>
+                    </div>
+
+
                 </div>
-                <div class=""><?=$review["text"]?></div>
 
 
-                <?php
+                <div class="text mt-2"><?=$review["text"]?></div>
 
-                if (!Yii::$app->user->isGuest){
-                    Popover::begin([
-                        'title' => $author->username,
-                        'toggleButton' => ['label' => $author->username],
 
-                    ]);
+                <div class="mt-3 mb-3">
+                    <?php foreach ($review->cities as $city):?>
+                        <?=$city["name"] . '  '?>
+                    <?php endforeach;?>
+                </div>
 
-                    echo $author->phone;
-                    echo $author->email;
-                    echo \yii\helpers\Html::a('View', ['author/', 'id' => $review["id"]],['class'=>'btn btn-primary']);
-                    Popover::end();
-                }
 
-                ?>
+                <div class="button open-page-review">
+                    <?= \yii\helpers\Html::a( 'Подробнее', ['review/one', 'id' => $review["id"]], ['class' => 'btn btn-success'])?>
+                </div>
 
-                <?php foreach ($review->cities as $city):?>
-                    <div class=""><?=$city["name"]?></div>
-                <?php endforeach;?>
 
-                <?= \yii\helpers\Html::a( 'Подробнее', ['review/one', 'id' => $review["id"]], ['class' => 'btn btn-success'])?>
-
-                <div class=""><span>Оценка: </span><?=$review["rating"]?></div>
-            <div>
-            <?php endforeach;?>
-        </div>
+                <div class="rating"><span>Оценка: </span><?=$review["rating"]?></div>
+            </div>
+        <?php endforeach;?>
     </div>
 </div>
+
+
+
+
+

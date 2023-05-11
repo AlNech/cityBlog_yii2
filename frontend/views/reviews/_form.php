@@ -32,13 +32,14 @@ use common\models\Cities;
 
     <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'rating')->radioList([1,2,3,4,5]) ?>
+    <?= $form->field($model, 'rating')->radioList(['1' => 1,'2' => 2,'3' =>3, '4' =>4, '5' => 5]) ?>
 
 
 
 
 
     <div class="form-group">
+
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 

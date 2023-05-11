@@ -34,7 +34,14 @@ class ReviewCity extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Cities::class, ['id' => 'city_id']);
     }
-
+   public function getReviewNoCity(){
+        $review_id = $this->find()->where(['city_id' =>null])->all();
+        $reviews = [];
+        foreach ($review_id as $one){
+            array_push($reviews, Reviews::findOne($one['review_id']));
+        }
+        return $reviews;
+   }
     /**
      * {@inheritdoc}
      */

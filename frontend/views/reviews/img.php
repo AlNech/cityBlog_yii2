@@ -15,7 +15,7 @@ use common\models\Cities;
     <?= $form->field($model, 'img')->fileInput(['maxlength' => true]) ?>
 
 
-    <div class="form-group">
+    <div class="form-group mt-3">
         <?= Html::submitButton('Upload', ['class' => 'btn btn-success']) ?>
     </div>
 

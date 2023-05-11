@@ -142,11 +142,18 @@ class Reviews extends \yii\db\ActiveRecord
     {
         ReviewCity::deleteAll(['review_id' => $this->id]);
         $values = [];
-        foreach ($this->cities_arr as $id) {
-            $values[] = [$this->id, $id];
+        if(!isset($this->cities_arr)){
+            foreach ($this->cities_arr as $id) {
+                $values[] = [$this->id, $id];
+            }
+            self::getDb()->createCommand()
+                ->batchInsert(ReviewCity::tableName(), ['review_id', 'city_id'], $values)->execute();
+        }else{
+            $values[] = [$this->id, null];
+            self::getDb()->createCommand()
+                ->batchInsert(ReviewCity::tableName(), ['review_id', 'city_id'], $values)->execute();
         }
-        self::getDb()->createCommand()
-            ->batchInsert(ReviewCity::tableName(), ['review_id', 'city_id'], $values)->execute();
+
 
         parent::afterSave($insert, $changedAttributes);
 
