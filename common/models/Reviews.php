@@ -26,7 +26,6 @@ class Reviews extends \yii\db\ActiveRecord
 {
 
 
-
     public function behaviors()
     {
         return [
@@ -44,6 +43,7 @@ class Reviews extends \yii\db\ActiveRecord
             ],
         ];
     }
+
     /**
      * {@inheritdoc}
      */
@@ -67,12 +67,14 @@ class Reviews extends \yii\db\ActiveRecord
             [['cities_arr'], 'safe'],
         ];
     }
+
     public function getUrl()
     {
-        return Yii::$app->urlManager->createUrl([ 'review/view',
-            'id'=>$this->id,
-            'title'=>$this->title]);
+        return Yii::$app->urlManager->createUrl(['review/view',
+            'id' => $this->id,
+            'title' => $this->title]);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -89,7 +91,9 @@ class Reviews extends \yii\db\ActiveRecord
             'date_create' => 'Date Create',
         ];
     }
-    public function getUser($id){
+
+    public function getUser($id)
+    {
         $user = User::findOne($id);
         return $user;
     }
@@ -99,6 +103,7 @@ class Reviews extends \yii\db\ActiveRecord
         $this->img = $filename;
         $this->save(false);
     }
+
     public function getAuthor()
     {
         return $this->hasOne(User::class, ['id' => 'id_author']);
@@ -110,6 +115,7 @@ class Reviews extends \yii\db\ActiveRecord
         return $this->hasMany(Cities::className(), ['id' => 'city_id'])
             ->viaTable('review_city', ['review_id' => 'id']);
     }
+
     /**
      * Список городов, закреплённых за отзывом.
      * @var array
@@ -122,13 +128,15 @@ class Reviews extends \yii\db\ActiveRecord
      */
     public function setCities($city_id)
     {
-        $this->cities_arr = (array) $city_id;
+        $this->cities_arr = (array)$city_id;
     }
+
     public function getCitiesString()
     {
         $arr = ArrayHelper::map($this->cities, 'id', 'name');
         return implode(', ', $arr);
     }
+
     /**
      * Возвращает массив идентификаторов городов.
      */
@@ -138,17 +146,18 @@ class Reviews extends \yii\db\ActiveRecord
             $this->getCities()->all(), 'city_id'
         );
     }
+
     public function afterSave($insert, $changedAttributes)
     {
         ReviewCity::deleteAll(['review_id' => $this->id]);
         $values = [];
-        if(!isset($this->cities_arr)){
+        if (!isset($this->cities_arr)) {
             foreach ($this->cities_arr as $id) {
                 $values[] = [$this->id, $id];
             }
             self::getDb()->createCommand()
                 ->batchInsert(ReviewCity::tableName(), ['review_id', 'city_id'], $values)->execute();
-        }else{
+        } else {
             $values[] = [$this->id, null];
             self::getDb()->createCommand()
                 ->batchInsert(ReviewCity::tableName(), ['review_id', 'city_id'], $values)->execute();

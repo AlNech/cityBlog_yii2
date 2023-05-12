@@ -23,8 +23,8 @@ class m230413_144618_create_reviews_table extends Migration
         ]);
 
 
-        $this->batchInsert('reviews', ['id', 'title', 'text', 'rating', 'img', 'id_author', 'date_create'],[
-                [1, 'Cool', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis diam ac turpis finibus aliquam. Nulla vel magna molestie, accumsan ipsum vitae, tristique purus. Praesent a nisl libero.', 5, null,  1, 1683235829],
+        $this->batchInsert('reviews', ['id', 'title', 'text', 'rating', 'img', 'id_author', 'date_create'], [
+                [1, 'Cool', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis diam ac turpis finibus aliquam. Nulla vel magna molestie, accumsan ipsum vitae, tristique purus. Praesent a nisl libero.', 5, null, 1, 1683235829],
                 [2, 'Amazing', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis diam ac turpis finibus aliquam. Nulla vel magna molestie, accumsan ipsum vitae, tristique purus. Praesent a nisl libero.', 4, '00d363615d36f98fdaa1c7572b14420b.jpg', 1, 1683235829],
                 [3, 'Awesome', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis diam ac turpis finibus aliquam. Nulla vel magna molestie, accumsan ipsum vitae, tristique purus. Praesent a nisl libero.', 3, null, 1, 1683235829],
                 [4, 'Good', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis diam ac turpis finibus aliquam. Nulla vel magna molestie, accumsan ipsum vitae, tristique purus. Praesent a nisl libero.', 2, null, 1, 1683235829],

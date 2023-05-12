@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "cities".
  *
@@ -18,6 +19,7 @@ class Cities extends \yii\db\ActiveRecord
 
     private $TOKEN = "cba7b8c2a30dc77de83849fa60076abb5e8bcafd";
     private $SECRET = "0b1b44050176785fe58567edb230438497102638";
+
     /**
      * {@inheritdoc}
      */
@@ -25,6 +27,7 @@ class Cities extends \yii\db\ActiveRecord
     {
         return 'cities';
     }
+
     public function behaviors()
     {
         return [
@@ -34,8 +37,9 @@ class Cities extends \yii\db\ActiveRecord
                     ActiveRecord::EVENT_BEFORE_INSERT => ['date_create'],
                 ],
             ]
-            ];
+        ];
     }
+
     /**
      * {@inheritdoc}
      */
@@ -43,21 +47,22 @@ class Cities extends \yii\db\ActiveRecord
     {
         return [
             [['date_create'], 'integer'],
-            [['name'],  'string', 'max' => 255],
-            [['name'],  'unique'],
-            [['name'],  'checkCityAPI'],
+            [['name'], 'string', 'max' => 255],
+            [['name'], 'unique'],
+            [['name'], 'checkCityAPI'],
         ];
     }
 
     //Validate city existed with API - service dadata
-    public function checkCityAPI($attribute){
+    public function checkCityAPI($attribute)
+    {
         $dadata = new \Dadata\DadataClient($this->TOKEN, $this->SECRET);
 
-        $url= $dadata->clean("address", $this->name);
+        $url = $dadata->clean("address", $this->name);
         if (isset($this->name)) {
-            if($url["result"]!=null) {
+            if ($url["result"] != null) {
                 return true;
-            }else{
+            } else {
                 $this->addError($attribute, "This city doesn't exist");
             }
         }
