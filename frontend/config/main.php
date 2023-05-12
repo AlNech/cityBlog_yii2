@@ -23,7 +23,6 @@ return [
         'session' => [
             // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced-frontend',
-            'timeout' => 1000,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

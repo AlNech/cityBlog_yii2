@@ -19,6 +19,4 @@ class AuthorController extends Controller
 
         return $this->render('all/index', ['reviews' => $reviews]);
     }
-
-
 }

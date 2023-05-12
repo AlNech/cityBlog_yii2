@@ -19,7 +19,7 @@ class ReviewController extends Controller
     public function actionIndex($id)
     {
         $session = Yii::$app->session;
-        if (!isset($session['city'])){
+        if (!isset($session['city'])) {
             $session['city'] = [
                 'id_city' => $id,
                 'lifetime' => time() + 10,
@@ -31,12 +31,13 @@ class ReviewController extends Controller
         $reviews_nocity = new ReviewCity;
         $nocity = $reviews_nocity->getReviewNoCity();
         $reviews = $city->reviews;
-        foreach ($nocity as $one){
+        foreach ($nocity as $one) {
             array_push($reviews, $one);
         }
 
-        return $this->render('all/index', ['reviews' => $reviews, 'session'=>$session]);
+        return $this->render('all/index', ['reviews' => $reviews, 'session' => $session]);
     }
+
     public function actionOne($id)
     {
         $review = Reviews::findOne($id);

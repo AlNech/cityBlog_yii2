@@ -55,8 +55,7 @@ class ReviewsController extends Controller
     {
         $model = new ImageUpload;
 
-        if (Yii::$app->request->isPost)
-        {
+        if (Yii::$app->request->isPost) {
             $reviews = $this->findModel($id);
             $file = UploadedFile::getInstance($model, 'img');
 
@@ -65,6 +64,7 @@ class ReviewsController extends Controller
         }
         return $this->render('img', ['model' => $model]);
     }
+
     /**
      * Displays a single Reviews model.
      * @param int $id ID

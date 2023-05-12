@@ -29,6 +29,7 @@ class SiteController extends Controller
 {
     private $TOKEN = "cba7b8c2a30dc77de83849fa60076abb5e8bcafd";
     private $SECRET = "0b1b44050176785fe58567edb230438497102638";
+
     /**
      * {@inheritdoc}
      */
@@ -75,20 +76,25 @@ class SiteController extends Controller
             ],
         ];
     }
-    public function sortObjectSetBy($objectSetForSort, $sortBy){
 
-        usort($objectSetForSort, function($object1,$object2) use ($sortBy){
-            if($object1->$sortBy == $object2->$sortBy) return 0;
-            return ($object1->$sortBy < $object2->$sortBy) ? -1 : 1;});
+    public function sortObjectSetBy($objectSetForSort, $sortBy)
+    {
+
+        usort($objectSetForSort, function ($object1, $object2) use ($sortBy) {
+            if ($object1->$sortBy == $object2->$sortBy) return 0;
+            return ($object1->$sortBy < $object2->$sortBy) ? -1 : 1;
+        });
 
         return $objectSetForSort;
     }
+
     /**
      * Displays homepage.
      *
      * @return mixed
      */
-    public function addUser(){
+    public function addUser()
+    {
         $model = User::find()->where(['username' => 'admin'])->one();
         if (empty($model)) {
             $user = new User();
@@ -104,6 +110,7 @@ class SiteController extends Controller
             $user->save();
         }
     }
+
     public function actionIndex()
     {
         $this->addUser();
@@ -118,14 +125,13 @@ class SiteController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                    return $this->redirect(['/']);
-            }
-            else {
-                    $model->loadDefaultValues();
+                return $this->redirect(['/']);
+            } else {
+                $model->loadDefaultValues();
             }
         }
 
-        return $this->render('index', ['cities'=>$cities, 'model' => $model, 'location'=>$location, 'session'=>$session]);
+        return $this->render('index', ['cities' => $cities, 'model' => $model, 'location' => $location, 'session' => $session]);
     }
 
     /**
@@ -141,11 +147,11 @@ class SiteController extends Controller
 
         $form = new LoginForm();
         if ($form->load(Yii::$app->request->post())) {
-            try{
-                if($form->login()){
+            try {
+                if ($form->login()) {
                     return $this->goBack();
                 }
-            } catch (\DomainException $e){
+            } catch (\DomainException $e) {
                 Yii::$app->session->setFlash('error', $e->getMessage());
                 return $this->goHome();
             }
@@ -171,7 +177,8 @@ class SiteController extends Controller
     }
 
     //Get location user with IP-address
-    public function getUserIpLocation(){
+    public function getUserIpLocation()
+    {
         //The $ip value should be determined with special function,
         //$ip = $_SERVER['REMOTE_ADDR'];
         //but it is on location server therefore function doesn't work
@@ -181,6 +188,7 @@ class SiteController extends Controller
         $location = $dadata->iplocate($ip);
         return $location["data"]["city"];
     }
+
     /**
      * Displays contact page.
      *
@@ -225,12 +233,12 @@ class SiteController extends Controller
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             $signupService = new SignupService();
 
-            try{
+            try {
                 $user = $signupService->signup($form);
                 Yii::$app->session->setFlash('success', 'Check your email to confirm the registration.');
                 $signupService->sentEmailConfirm($user);
                 return $this->goHome();
-            } catch (\RuntimeException $e){
+            } catch (\RuntimeException $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
@@ -241,20 +249,22 @@ class SiteController extends Controller
         ]);
 
     }
+
     public function actionSignupConfirm($token)
     {
         $signupService = new SignupService();
 
-        try{
+        try {
             $signupService->confirmation($token);
             Yii::$app->session->setFlash('success', 'You have successfully confirmed your registration.');
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
 
         return $this->goHome();
     }
+
     /**
      * Requests password reset.
      *
