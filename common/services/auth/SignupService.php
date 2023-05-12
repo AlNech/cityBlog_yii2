@@ -25,7 +25,7 @@ class SignupService
         //The email message with verify token forms at frontend/runtime
         $user->status = User::STATUS_ACTIVE;
 
-        if(!$user->save()){
+        if (!$user->save()) {
             throw new \RuntimeException('Saving error.');
         }
 
@@ -69,7 +69,7 @@ class SignupService
             throw new \RuntimeException('Saving error.');
         }
 
-        if (!Yii::$app->getUser()->login($user)){
+        if (!Yii::$app->getUser()->login($user)) {
             throw new \RuntimeException('Error authentication.');
         }
     }

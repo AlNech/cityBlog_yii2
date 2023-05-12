@@ -18,7 +18,7 @@ class m230413_144529_create_cities_table extends Migration
             'date_create' => $this->integer()
         ]);
 
-        $this->batchInsert('cities', ['id', 'name', 'date_create'],[
+        $this->batchInsert('cities', ['id', 'name', 'date_create'], [
                 [1, 'Москва', 1683235829],
                 [2, 'Санкт-Петербург', 1683235829],
                 [3, 'Ижевск', 1683235829],
