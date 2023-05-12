@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var common\models\Cities $cities */
 /** @var \frontend\controllers\ReviewController $reviews */
-/** @var \frontend\controllers\ReviewController $authors*/
-/** @var \frontend\controllers\ReviewController $session*/
+/** @var \frontend\controllers\ReviewController $authors */
+/** @var \frontend\controllers\ReviewController $session */
 $this->title = 'My Yii Application';
 ?>
 <!--Determinate is time over on session-->

@@ -37,9 +37,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'text:ntext',
             'rating',
-            ['attribute'=>'Author', 'value'=>function($model){return $model->author->username;}],
-            ['attribute'=>'Cities', 'value'=>function($model){return $model->citiesstring;}],
-            ['attribute'=>'Date create', 'value'=>function($model){return date('F j, Y',$model->date_create);}],
+            ['attribute' => 'Author', 'value' => function ($model) {
+                return $model->author->username;
+            }],
+            ['attribute' => 'Cities', 'value' => function ($model) {
+                return $model->citiesstring;
+            }],
+            ['attribute' => 'Date create', 'value' => function ($model) {
+                return date('F j, Y', $model->date_create);
+            }],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Reviews $model, $key, $index, $column) {
@@ -48,12 +54,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
-
-
-
-
-
-
 
 </div>

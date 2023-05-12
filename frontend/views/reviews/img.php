@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\Cities;
+
 /** @var yii\web\View $this */
 /** @var common\models\Reviews $model */
 /** @var yii\widgets\ActiveForm $form */

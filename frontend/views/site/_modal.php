@@ -3,11 +3,12 @@
 use common\models\Cities;
 use yii\bootstrap5\Modal;
 use \yii\helpers\Html;
+
 /** @var common\models\Cities $cities */
 /** @var \frontend\controllers\SiteController $location */
 ?>
 <script type="text/javascript">
-    $(window).on('load', function() {
+    $(window).on('load', function () {
         var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
             keyboard: false
         })
@@ -28,12 +29,12 @@ use \yii\helpers\Html;
                     <h5 class="modal-title" id="">Добро пожаловать!</h5>
                 </div>
                 <div class="modal-body">
-                    <p><?=$location?> ваш город?</p>
+                    <p><?= $location ?> ваш город?</p>
                 </div>
                 <div class="modal-footer">
                     <?php
                     $city = Cities::find()->where(['name' => $location])->one();
-                    echo Html::a('Да', ['review/', 'id' => $city->id], ['class' => 'btn btn-primary'])?>
+                    echo Html::a('Да', ['review/', 'id' => $city->id], ['class' => 'btn btn-primary']) ?>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
                 </div>
             </div>

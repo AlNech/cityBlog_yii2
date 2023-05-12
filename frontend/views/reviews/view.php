@@ -14,7 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 
 
-
 ?>
 <div class="reviews-view" id="p0">
 
@@ -26,32 +25,36 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => 'Are you sure you want to delete this item?',
-                    'method' => 'post',
-                ],
-            ]) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Are you sure you want to delete this item?',
+                'method' => 'post',
+            ],
+        ]) ?>
 
 
     </p>
 
 
-
-        <?= DetailView::widget([
-            'model' => $model,
-            'attributes' => [
-                ['attribute'=>'Cities', 'value'=>function($model){return $model->citiesstring;}],
-                'title',
-                'text:ntext',
-                'rating',
-                'img',
-                ['attribute'=>'Author', 'value'=>function($model){return $model->author->username;}],
-                ['attribute'=>'Date create', 'value'=>function($model){return date('F j, Y',$model->date_create);}],
-            ],
-        ]) ?>
-
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            ['attribute' => 'Cities', 'value' => function ($model) {
+                return $model->citiesstring;
+            }],
+            'title',
+            'text:ntext',
+            'rating',
+            'img',
+            ['attribute' => 'Author', 'value' => function ($model) {
+                return $model->author->username;
+            }],
+            ['attribute' => 'Date create', 'value' => function ($model) {
+                return date('F j, Y', $model->date_create);
+            }],
+        ],
+    ]) ?>
 
 
 </div>
