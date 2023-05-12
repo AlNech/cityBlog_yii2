@@ -53,12 +53,16 @@ class Cities extends \yii\db\ActiveRecord
         ];
     }
 
-    //Validate city existed with API - service dadata
+    // Validate city existence inputted at form in main page and backend with API - service dadata
     public function checkCityAPI($attribute)
     {
+        //Create new object dadata
         $dadata = new \Dadata\DadataClient($this->TOKEN, $this->SECRET);
 
+        //Conduct to research by city existing
         $url = $dadata->clean("address", $this->name);
+
+        //Condition checks existence name of city if exist then validate success, else message with error will appear
         if (isset($this->name)) {
             if ($url["result"] != null) {
                 return true;
@@ -68,6 +72,7 @@ class Cities extends \yii\db\ActiveRecord
         }
     }
 
+    // Get review with table review_city
     public function getReviews()
     {
         return $this->hasMany(Reviews::className(), ['id' => 'review_id'])

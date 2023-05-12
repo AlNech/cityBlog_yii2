@@ -50,13 +50,14 @@ class ReviewsController extends Controller
         ]);
     }
 
-
+    // Save img loaded at frontend/models/imageupload and reviews/img.php form
     public function actionSetImage($id): string
     {
         $model = new ImageUpload;
 
         if (Yii::$app->request->isPost) {
             $reviews = $this->findModel($id);
+            //Get filename
             $file = UploadedFile::getInstance($model, 'img');
 
             $reviews->saveImage($model->uploadFile($file, $reviews->img));

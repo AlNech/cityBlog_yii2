@@ -32,7 +32,7 @@ class SignupService
         return $user;
     }
 
-
+    //Send email for verify user
     public function sentEmailConfirm(User $user)
     {
         $email = $user->email;

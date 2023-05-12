@@ -20,6 +20,7 @@ class ImageUpload extends Model
 
     public function uploadFile($file, $currentImage)
     {
+        // Get start name file
         $this->img = $file;
 
 
@@ -27,6 +28,7 @@ class ImageUpload extends Model
             unlink(Yii::getAlias('@web') . 'uploads/' . $currentImage);
         }
 
+        // Proccessing filename img and save at web/uploads directory
         $filename = strtolower(md5(uniqid($file->baseName)) . '.' . $file->extension);
         $this->img->saveAs(Yii::getAlias('@web') . 'uploads/' . $filename);
 

@@ -42,7 +42,7 @@ $this->title = 'My Yii Application';
 
                 </div>
 
-
+                <!--Open img if it is existence-->
                 <div class="img mt-3 mb-4">
                     <?php
                     if ($review["img"] != null) {
@@ -58,7 +58,7 @@ $this->title = 'My Yii Application';
 
                 <div class="text mt-2"><?= $review["text"] ?></div>
 
-
+                <!--List cities of this review-->
                 <div class="mt-3 mb-3">
                     <?php foreach ($review->cities as $city): ?>
                         <?= $city["name"] . '  ' ?>

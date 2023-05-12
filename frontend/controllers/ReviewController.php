@@ -18,6 +18,7 @@ class ReviewController extends Controller
 
     public function actionIndex($id)
     {
+        // Condition check city at session if doesn't exist then create with timelife and choiced city -> id
         $session = Yii::$app->session;
         if (!isset($session['city'])) {
             $session['city'] = [
@@ -26,22 +27,25 @@ class ReviewController extends Controller
             ];
         }
 
-
+        // Research review with city
         $city = Cities::findOne($id);
+        $reviews = $city->reviews;
+
+        // Research review without city and push this reviews to value $reviews
         $reviews_nocity = new ReviewCity;
         $nocity = $reviews_nocity->getReviewNoCity();
-        $reviews = $city->reviews;
         foreach ($nocity as $one) {
             array_push($reviews, $one);
         }
 
+
         return $this->render('all/index', ['reviews' => $reviews, 'session' => $session]);
     }
 
+    // Page with one review after clicked buttton "Подробнее"
     public function actionOne($id)
     {
         $review = Reviews::findOne($id);
-
 
         return $this->render('all/one', ['review' => $review]);
     }

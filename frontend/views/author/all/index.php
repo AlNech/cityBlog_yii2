@@ -27,7 +27,7 @@ $this->title = 'My Yii Application';
 
                 <div class="text mt-2"><?= $review["text"] ?></div>
 
-
+                <!--        List cities of this review-->
                 <div class="mt-3 mb-3">
                     <?php foreach ($review->cities as $city): ?>
                         <?= $city["name"] . '  ' ?>

@@ -92,24 +92,27 @@ class Reviews extends \yii\db\ActiveRecord
         ];
     }
 
+    // Find author review independence at current review this model
     public function getUser($id)
     {
         $user = User::findOne($id);
         return $user;
     }
 
+    // Save img
     public function saveImage($filename)
     {
         $this->img = $filename;
         $this->save(false);
     }
 
+    // Find author review with current id this review
     public function getAuthor()
     {
         return $this->hasOne(User::class, ['id' => 'id_author']);
     }
 
-
+    // GET city with table review_city
     public function getCities()
     {
         return $this->hasMany(Cities::className(), ['id' => 'city_id'])
@@ -117,13 +120,13 @@ class Reviews extends \yii\db\ActiveRecord
     }
 
     /**
-     * Список городов, закреплённых за отзывом.
+     * List cities belong this model review
      * @var array
      */
     public $cities_arr = [];
 
     /**
-     * Устанавлиает тэги отзыва.
+     * Customize id city
      * @param $city_id
      */
     public function setCities($city_id)
@@ -131,6 +134,7 @@ class Reviews extends \yii\db\ActiveRecord
         $this->cities_arr = (array)$city_id;
     }
 
+    // GET city this model as string
     public function getCitiesString()
     {
         $arr = ArrayHelper::map($this->cities, 'id', 'name');
@@ -138,7 +142,7 @@ class Reviews extends \yii\db\ActiveRecord
     }
 
     /**
-     * Возвращает массив идентификаторов городов.
+     * Return id cities
      */
     public function getCitiesId()
     {
@@ -151,6 +155,9 @@ class Reviews extends \yii\db\ActiveRecord
     {
         ReviewCity::deleteAll(['review_id' => $this->id]);
         $values = [];
+
+        // Condition check if citites_arr doesn't null then record to database review_city values review_id and city_id
+        // Else record to database review_city value review_id and city_id = null
         if (!isset($this->cities_arr)) {
             foreach ($this->cities_arr as $id) {
                 $values[] = [$this->id, $id];

@@ -12,6 +12,7 @@ use yii\web\Controller;
 
 class AuthorController extends Controller
 {
+    // Page with all reviews of one author
     public function actionIndex($id)
     {
         $user = User::findOne($id);

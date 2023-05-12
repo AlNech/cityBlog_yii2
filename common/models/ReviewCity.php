@@ -31,11 +31,13 @@ class ReviewCity extends \yii\db\ActiveRecord
         ];
     }
 
+    // GET city with id
     public function getCity()
     {
         return $this->hasOne(Cities::class, ['id' => 'city_id']);
     }
 
+    // Find review without city
     public function getReviewNoCity()
     {
         $review_id = $this->find()->where(['city_id' => null])->all();
