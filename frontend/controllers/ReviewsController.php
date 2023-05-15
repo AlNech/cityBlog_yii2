@@ -41,12 +41,19 @@ class ReviewsController extends Controller
      */
     public function actionIndex()
     {
+        $model = new Reviews();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            $model = new Reviews(); //reset model
+        }
         $searchModel = new ReviewsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model,
         ]);
     }
 

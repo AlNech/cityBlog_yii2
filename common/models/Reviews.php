@@ -158,7 +158,7 @@ class Reviews extends \yii\db\ActiveRecord
 
         // Condition check if citites_arr doesn't null then record to database review_city values review_id and city_id
         // Else record to database review_city value review_id and city_id = null
-        if (!isset($this->cities_arr)) {
+        if (isset($this->cities_arr)) {
             foreach ($this->cities_arr as $id) {
                 $values[] = [$this->id, $id];
             }
