@@ -3,7 +3,7 @@
 
 ##  USAGE
 
-=
+
 
 `
 Login: admin
@@ -12,7 +12,7 @@ Password: admin1234
 
 ##  USED
 
-=
+
 For choice some city in create form
 
 `
@@ -29,7 +29,7 @@ For API used service dadata
 
 ##  IMPORTANT
 
-=
+
 If you want change session timeout with choiced city you should change value at frontend/ReviewController session['city]['timelife']
 (Default it is for 10 sec)
 
