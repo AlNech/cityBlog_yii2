@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <!--<p>
-        <?php /*= Html::a('Create Reviews', ['create'], ['class' => 'btn btn-success']) */?>
+        <?php /*= Html::a('Create Reviews', ['create'], ['class' => 'btn btn-success']) */ ?>
     </p>-->
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -32,37 +32,37 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <?php LoadingOverlayPjax::begin([
-            'elementOverlay'=>'#reviews_grid',
-            'fade'=>[600,300],
-            'color'=> 'rgba(102, 255, 204, 0.2)',
-            'fontawesome' => 'fas fa-cog fa-spin',
-            'id' => 'reviews']); ?>
-        <?= GridView::widget([
-            'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
-            'options' => ['id' => 'reviews_grid'],
-            'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
-                'id',
-                'title',
-                'text:ntext',
-                'rating',
-                ['attribute' => 'Author', 'value' => function ($model) {
-                    return $model->author->username;
-                }],
-                ['attribute' => 'Cities', 'value' => function ($model) {
-                    return $model->citiesstring;
-                }],
-                ['attribute' => 'Date create', 'value' => function ($model) {
-                    return date('F j, Y', $model->date_create);
-                }],
-                [
-                    'class' => 'yii\grid\ActionColumn',
-                    'urlCreator' => function ($action, Reviews $model, $key, $index, $column) {
-                        return Url::toRoute([$action, 'id' => $model->id]);
-                    }
-                ],
+        'elementOverlay' => '#reviews_grid',
+        'fade' => [600, 300],
+        'color' => 'rgba(102, 255, 204, 0.2)',
+        'fontawesome' => 'fas fa-cog fa-spin',
+        'id' => 'reviews']); ?>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'options' => ['id' => 'reviews_grid'],
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'id',
+            'title',
+            'text:ntext',
+            'rating',
+            ['attribute' => 'Author', 'value' => function ($model) {
+                return $model->author->username;
+            }],
+            ['attribute' => 'Cities', 'value' => function ($model) {
+                return $model->citiesstring;
+            }],
+            ['attribute' => 'Date create', 'value' => function ($model) {
+                return date('F j, Y', $model->date_create);
+            }],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'urlCreator' => function ($action, Reviews $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id' => $model->id]);
+                }
             ],
-        ]); ?>
+        ],
+    ]); ?>
     <?php LoadingOverlayPjax::end(); ?>
 </div>

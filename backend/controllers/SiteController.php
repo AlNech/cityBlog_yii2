@@ -26,6 +26,9 @@ class SiteController extends Controller
                     [
                         'actions' => ['login', 'error'],
                         'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->identity->isAdmin;
+                        }
                     ],
                     [
                         'actions' => ['logout', 'index'],
