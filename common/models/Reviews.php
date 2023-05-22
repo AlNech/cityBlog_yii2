@@ -160,8 +160,21 @@ class Reviews extends \yii\db\ActiveRecord
         // Else record to database review_city value review_id and city_id = null
         if (isset($this->cities_arr)) {
             foreach ($this->cities_arr as $id) {
-                $values[] = [$this->id, $id];
+                $exist_city = Cities::find()->where(['id' => $id])->one();
+                //Check that user input: existed city witch have id in database or new city
+                //If the city with id = $id exist then save the record with review
+                //Else at the beginning save the city in database after save record with review
+                if (isset($exist_city)) {
+                    $values[] = [$this->id, $id];
+                } else {
+                    $city = new Cities();
+                    $city->name = $id;
+                    if ($city->save()) {
+                        $values[] = [$this->id, $city->id];
+                    }
+                }
             }
+
             self::getDb()->createCommand()
                 ->batchInsert(ReviewCity::tableName(), ['review_id', 'city_id'], $values)->execute();
         } else {
