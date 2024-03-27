@@ -22,7 +22,8 @@
         "kartik-v/yii2-popover-x": "dev-master",
         "hflabs/dadata": "^22.3",
         "timurmelnikov/yii2-loading-overlay": "~1.0.0",
-        "rmrevin/yii2-fontawesome": "~3.5"
+        "rmrevin/yii2-fontawesome": "~3.5",
+        "vlucas/phpdotenv": "^5.6"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

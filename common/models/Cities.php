@@ -15,10 +15,8 @@ use yii\db\ActiveRecord;
  */
 class Cities extends \yii\db\ActiveRecord
 {
-
-
-    private $TOKEN = "cba7b8c2a30dc77de83849fa60076abb5e8bcafd";
-    private $SECRET = "0b1b44050176785fe58567edb230438497102638";
+    private const TOKEN = "91e5d0766db64ab3054b502c8e0fac45f7f2fb27";
+    private const SECRET = "0b1b44050176785fe58567edb230438497102638";
 
     /**
      * {@inheritdoc}
@@ -57,7 +55,7 @@ class Cities extends \yii\db\ActiveRecord
     public function checkCityAPI($attribute)
     {
         //Create new object dadata
-        $dadata = new \Dadata\DadataClient($this->TOKEN, $this->SECRET);
+        $dadata = new \Dadata\DadataClient(self::TOKEN, self::SECRET);
 
         //Conduct to research by city existing
         $url = $dadata->clean("address", $this->name);

@@ -23,8 +23,8 @@ class m130524_201442_init extends Migration
             'email' => $this->string()->notNull()->unique(),
             'phone' => $this->integer(),
             'status' => $this->smallInteger()->notNull()->defaultValue(0),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->integer()->notNull()->defaultValue(time()),
+            'updated_at' => $this->integer()->notNull()->defaultValue(time()),
         ], $tableOptions);
     }
 

@@ -27,8 +27,8 @@ use yii\web\UploadedFile;
  */
 class SiteController extends Controller
 {
-    private $TOKEN = "cba7b8c2a30dc77de83849fa60076abb5e8bcafd";
-    private $SECRET = "0b1b44050176785fe58567edb230438497102638";
+    private const TOKEN = "91e5d0766db64ab3054b502c8e0fac45f7f2fb27";
+    private const SECRET = "0b1b44050176785fe58567edb230438497102638";
 
     /**
      * {@inheritdoc}
@@ -88,32 +88,8 @@ class SiteController extends Controller
         return $objectSetForSort;
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
-    public function addUser()
-    {
-        $model = User::find()->where(['username' => 'admin'])->one();
-        if (empty($model)) {
-            $user = new User();
-            $user->id = 1;
-            $user->username = 'admin';
-            $user->isAdmin = 1;
-            $user->fio = 'Ivanov Ivan Ivanovich';
-            $user->phone = 893333333;
-            $user->generateAuthKey();
-            $user->status = 10;
-            $user->email = 'admin@yoursite.ru';
-            $user->setPassword('admin1234');
-            $user->save();
-        }
-    }
-
     public function actionIndex()
     {
-        $this->addUser();
         $location = $this->getUserIpLocation();
 
         $session = Yii::$app->session;
@@ -183,7 +159,7 @@ class SiteController extends Controller
         //$ip = $_SERVER['REMOTE_ADDR'];
         //but it is on location server therefore function doesn't work
         $ip = "46.147.140.54";
-        $dadata = new \Dadata\DadataClient($this->TOKEN, $this->SECRET);
+        $dadata = new \Dadata\DadataClient(self::TOKEN, self::SECRET);
 
         $location = $dadata->iplocate($ip);
         return $location["data"]["city"];
