@@ -27,9 +27,6 @@ use yii\web\UploadedFile;
  */
 class SiteController extends Controller
 {
-    private const TOKEN = "91e5d0766db64ab3054b502c8e0fac45f7f2fb27";
-    private const SECRET = "0b1b44050176785fe58567edb230438497102638";
-
     /**
      * {@inheritdoc}
      */
@@ -159,7 +156,7 @@ class SiteController extends Controller
         //$ip = $_SERVER['REMOTE_ADDR'];
         //but it is on location server therefore function doesn't work
         $ip = "46.147.140.54";
-        $dadata = new \Dadata\DadataClient(self::TOKEN, self::SECRET);
+        $dadata = new \Dadata\DadataClient(env('DADDATA_TOKEN'), env('DADDATA_SECRET'));
 
         $location = $dadata->iplocate($ip);
         return $location["data"]["city"];
