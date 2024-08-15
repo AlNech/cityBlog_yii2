@@ -22,27 +22,6 @@
             "type": "bower-asset"
         },
         {
-            "name": "bower-asset/gasparesganga-jquery-loading-overlay",
-            "version": "v1.5.4",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:gasparesganga/jquery-loading-overlay.git",
-                "reference": "05c1d773579b0b544b9d710004308624cd13760d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/gasparesganga/jquery-loading-overlay/zipball/05c1d773579b0b544b9d710004308624cd13760d",
-                "reference": "05c1d773579b0b544b9d710004308624cd13760d"
-            },
-            "require": {
-                "bower-asset/jquery": ">=1.7.0"
-            },
-            "type": "bower-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
             "name": "bower-asset/inputmask",
             "version": "3.3.11",
             "source": {
@@ -2710,55 +2689,6 @@
                 }
             ],
             "time": "2022-05-30T19:17:58+00:00"
-        },
-        {
-            "name": "timurmelnikov/yii2-loading-overlay",
-            "version": "v1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/timurmelnikov/yii2-loading-overlay.git",
-                "reference": "316b963c5b3998a2612472caea7d53a1d1545973"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/timurmelnikov/yii2-loading-overlay/zipball/316b963c5b3998a2612472caea7d53a1d1545973",
-                "reference": "316b963c5b3998a2612472caea7d53a1d1545973",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/gasparesganga-jquery-loading-overlay": "1.5.*",
-                "yiisoft/yii2": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "timurmelnikov\\widgets\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Timur Melnikov",
-                    "email": "melnilovt@gmail.com"
-                }
-            ],
-            "description": "Yii2 виджет-обертка для использования плагина jQuery LoadingOverlay",
-            "keywords": [
-                "LoadingOverlay",
-                "ajax",
-                "jquery",
-                "pjax",
-                "widget",
-                "yii2"
-            ],
-            "support": {
-                "issues": "https://github.com/timurmelnikov/yii2-loading-overlay/issues",
-                "source": "https://github.com/timurmelnikov/yii2-loading-overlay/tree/master"
-            },
-            "time": "2017-10-25T08:44:34+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
