@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use Dadata\DadataClient;
 
 /**
  * This is the model class for table "cities".
@@ -15,9 +16,6 @@ use yii\db\ActiveRecord;
  */
 class Cities extends \yii\db\ActiveRecord
 {
-    private const TOKEN = "91e5d0766db64ab3054b502c8e0fac45f7f2fb27";
-    private const SECRET = "0b1b44050176785fe58567edb230438497102638";
-
     /**
      * {@inheritdoc}
      */
@@ -54,8 +52,7 @@ class Cities extends \yii\db\ActiveRecord
     // Validate city existence inputted at form in main page and backend with API - service dadata
     public function checkCityAPI($attribute)
     {
-        //Create new object dadata
-        $dadata = new \Dadata\DadataClient(self::TOKEN, self::SECRET);
+        $dadata = Yii::$app->dadata;
 
         //Conduct to research by city existing
         $url = $dadata->clean("address", $this->name);

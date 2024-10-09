@@ -10,20 +10,17 @@ class m230413_144529_create_cities_table extends Migration
     /**
      * {@inheritdoc}
      */
-    public function safeUp()
+    public function up()
     {
-        $this->createTable('{{%cities}}', [
+         $this->createTable('{{%cities}}', [
             'id' => $this->primaryKey(),
-            'name' => $this->string()->unique(),
+            'name' => $this->string(),
             'date_create' => $this->integer()
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         $this->batchInsert('cities', ['id', 'name', 'date_create'], [
                 [1, 'Москва', 1683235829],
-                [2, 'Санкт-Петербург', 1683235829],
-                [3, 'Ижевск', 1683235829],
-                [4, 'Самара', 1683235829],
-                [5, 'Саратов', 1683235829],
+                [2, 'Ижевск', 1683235829],
             ]
         );
     }
@@ -31,8 +28,8 @@ class m230413_144529_create_cities_table extends Migration
     /**
      * {@inheritdoc}
      */
-    public function safeDown()
+    public function down()
     {
-        $this->dropTable('{{%cities}}');
+        $this->dropTable('cities');
     }
 }

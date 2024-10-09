@@ -16,17 +16,18 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use Dadata\DadataClient;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
-use yii\web\UploadedFile;
 
 /**
  * Site controller
  */
 class SiteController extends Controller
 {
+
     /**
      * {@inheritdoc}
      */
@@ -87,6 +88,11 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        $dadata = Yii::$app->dadata;
+        $ip = "46.147.140.54";
+
+        $location = $dadata->iplocate($ip);
+       
         $location = $this->getUserIpLocation();
 
         $session = Yii::$app->session;
@@ -104,7 +110,12 @@ class SiteController extends Controller
             }
         }
 
-        return $this->render('index', ['cities' => $cities, 'model' => $model, 'location' => $location, 'session' => $session]);
+        return $this->render('index', [
+            'cities' => $cities, 
+            'model' => $model, 
+            'location' => $location, 
+            'session' => $session
+        ]);
     }
 
     /**
@@ -155,8 +166,9 @@ class SiteController extends Controller
         //The $ip value should be determined with special function,
         //$ip = $_SERVER['REMOTE_ADDR'];
         //but it is on location server therefore function doesn't work
+        $dadata = Yii::$app->dadata;
+
         $ip = "46.147.140.54";
-        $dadata = new \Dadata\DadataClient(env('DADDATA_TOKEN'), env('DADDATA_SECRET'));
 
         $location = $dadata->iplocate($ip);
         return $location["data"]["city"];

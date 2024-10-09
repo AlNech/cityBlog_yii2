@@ -20,7 +20,7 @@ class m230413_144618_create_reviews_table extends Migration
             'img' => $this->string(),
             'id_author' => $this->integer(),
             'date_create' => $this->integer()
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
 
         $this->batchInsert('reviews', ['id', 'title', 'text', 'rating', 'img', 'id_author', 'date_create'], [
