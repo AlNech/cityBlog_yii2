@@ -39,6 +39,8 @@ class SignupForm extends Model
             ['fio', 'string', 'min' => 2, 'max' => 255],
             ['phone', 'string', 'min' => 2, 'max' => 255],
 
+            ['status', 'default', 'value' => User::STATUS_INACTIVE],
+
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
             ['password_repeat', 'required'],
@@ -47,5 +49,46 @@ class SignupForm extends Model
         ];
     }
 
+     /**
+     * Signs user up.
+     *
+     * @return bool whether the creating new account was successful and email was sent
+     */
+    public function signup()
+    {
+        if (!$this->validate()) {
+            return false;
+        }
+        
+        $user = new User();
+        $user->username = $this->username;
+        $user->generateAuthKey();
+        $user->setPassword($this->password);
+        $user->email = $this->email;
+        $user->fio = $this->fio;
+        $user->phone = $this->phone;
+        $user->email_confirm_token = Yii::$app->security->generateRandomString() . '_' . time();
 
+        return $user->save() && $this->sendEmail($user);
+    }
+
+    
+     /**
+     * Sends confirmation email to user
+     * @param User $user user model to with email should be send
+     * @return bool whether the email was sent
+     */
+    protected function sendEmail($user)
+    {
+        return Yii::$app
+            ->mailer
+            ->compose(
+                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
+                ['user' => $user]
+            )
+            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setTo($this->email)
+            ->setSubject('Account registration at ' . Yii::$app->name)
+            ->send();
+    }
 }
