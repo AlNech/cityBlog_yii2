@@ -13,5 +13,12 @@ return [
         'cache' => [
             'class' => \yii\caching\FileCache::class,
         ],
+        'db' => [
+            'class' => \yii\db\Connection::class,
+            'dsn' => env('DB_MAIN_DSN'),
+            'username' => env('DB_MAIN_USERNAME'),
+            'password' => env('DB_MAIN_PASSWORD'),
+            'charset' => 'utf8',
+        ],
     ],
 ];

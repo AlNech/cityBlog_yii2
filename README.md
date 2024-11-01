@@ -1,36 +1,37 @@
-#   Сайт с отзывами городов
+# Сайт с блогами о городах
 
+==================================================================
 
-##  USAGE
-
-
+## Пользователь по умолчанию:
 
 `
 Login: admin
 Password: admin1234
 `
 
-##  USED
 
+## Запуск проекта:
 
-For choice some city in create form
+|---------------------------|
+|1| `make init`             |
+|2| `make start`            |
+|3| `make migrate up`       |
 
-`
-use kartik\select2\Select2;
-`
+### Команды Make
 
-For preloader
+| Команда                 | Описание                                                        |
+|-------------------------|-----------------------------------------------------------------|
+| `make init`             | Полная установка проекта с нуля                                 |
+| `make start`            | Запускает Docker-контейнеры                                     |
+| `make end`              | Удаляет Docker-контейнеры                                       |
+| `make migrate up`       | Применение миграции                                             |
+| `make migrate down`     | Отмена миграции                                                 |
 
-`
-use timurmelnikov\widgets\LoadingOverlayPjax;
-`
-
-For API used service dadata
 
 ##  IMPORTANT
 
 
-If you want change session timeout with choiced city you should change value at frontend/ReviewController session['city]['timelife']
+If you want change session timeout with choiced city you should change value at frontend/ReviewController session['city']['timelife']
 (Default it is for 10 sec)
 
 
