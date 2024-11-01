@@ -29,11 +29,6 @@ Password: admin1234
 | `make migrate down`     | Отмена миграции                                                 |
 
 
-##  IMPORTANT
-
-
-If you want change session timeout with choiced city you should change value at frontend/ReviewController session['city']['timelife']
-(Default it is for 10 sec)
 
 
 
