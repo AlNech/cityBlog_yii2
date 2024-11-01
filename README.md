@@ -12,10 +12,11 @@ Password: admin1234
 
 ## Запуск проекта:
 
-|-|-------------------------|
-|1| `make init`             |
-|2| `make start`            |
-|3| `make migrate up`       |
+| Шаг | Команда               |
+|----|------------------------|
+| 1  | `make init`            |
+| 2  | `make start`           |
+| 3  | `make migrate up`      |
 
 ### Команды Make
 
