@@ -17,6 +17,7 @@ Password: admin1234
 | 1  | `make init`            |
 | 2  | `make start`           |
 | 3  | `make migrate up`      |
+Доступ - http://127.0.0.1:20080
 
 ### Команды Make
 
